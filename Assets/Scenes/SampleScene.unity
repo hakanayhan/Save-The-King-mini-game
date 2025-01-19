@@ -811,7 +811,7 @@ Transform:
   m_GameObject: {fileID: 453389419}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -830,12 +830,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterdrop: {fileID: 2784072068748645236, guid: 08a89a296fa467b419621ddf78fb73fe, type: 3}
-  maxWaterObjects: 350
+  maxWaterObjects: 500
   emitRate: 0.1
   waterPool: []
   emit: 1
   randomizeSize: 1
   randomSizeRange: {x: 0.2, y: 0.2}
+  forceDirection: {x: -1, y: 0}
+  forceMagnitude: 2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

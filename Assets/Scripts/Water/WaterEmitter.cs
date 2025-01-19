@@ -15,6 +15,9 @@ public class WaterEmitter : MonoBehaviour
     public bool randomizeSize;
     public Vector2 randomSizeRange = new Vector2(0.5f, 0.5f);
 
+    public Vector2 forceDirection = new Vector2(-1f, 0f);
+    public float forceMagnitude = 10f;
+
     int index;
 
     float emitTime;
@@ -55,5 +58,6 @@ public class WaterEmitter : MonoBehaviour
         {
             w.SetRadius(Random.Range(randomSizeRange.x, randomSizeRange.y));
         }
+        w.GetComponent<Rigidbody2D>().AddForce(forceDirection.normalized * forceMagnitude, ForceMode2D.Impulse);
     }
 }
