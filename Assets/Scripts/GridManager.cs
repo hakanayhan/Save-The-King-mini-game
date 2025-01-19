@@ -41,10 +41,39 @@ public class GridManager : MonoBehaviour
                 tile.transform.parent = transform;
                 tile.transform.localScale = new Vector3(tileSize.x, tileSize.y, 1);
                 grid[x, y] = tile;
-                Color randomColor = colors[Random.Range(0, colors.Count)];
+                Color validColor = GetValidColor(x, y);
 
-                tile.GetComponent<Tile>().Initialize(x, y, this, randomColor);
+                tile.GetComponent<Tile>().Initialize(x, y, this, validColor);
             }
         }
+    }
+
+    private Color GetValidColor(int x, int y)
+    {
+        List<Color> validColors = new List<Color>(colors);
+
+        if (x > 1 && grid[x - 1, y] != null && grid[x - 2, y] != null)
+        {
+            Tile left1 = grid[x - 1, y].GetComponent<Tile>();
+            Tile left2 = grid[x - 2, y].GetComponent<Tile>();
+
+            if (left1.color == left2.color)
+            {
+                validColors.Remove(left1.color);
+            }
+        }
+
+        if (y > 1 && grid[x, y - 1] != null && grid[x, y - 2] != null)
+        {
+            Tile up1 = grid[x, y - 1].GetComponent<Tile>();
+            Tile up2 = grid[x, y - 2].GetComponent<Tile>();
+
+            if (up1.color == up2.color)
+            {
+                validColors.Remove(up1.color);
+            }
+        }
+
+        return validColors[Random.Range(0, validColors.Count)];
     }
 }
