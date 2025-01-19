@@ -21,6 +21,8 @@ public class GridManager : MonoBehaviour
     public float spacing;
     private GameObject[,] grid;
 
+    public Tile SelectedTile;
+
     void Start()
     {
         grid = new GameObject[width, height];
@@ -47,6 +49,23 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    public void SwapTiles(Tile tile1, Tile tile2)
+    {
+        grid[tile1.x, tile1.y] = tile2.gameObject;
+        grid[tile2.x, tile2.y] = tile1.gameObject;
+
+        int tempX = tile1.x;
+        int tempY = tile1.y;
+
+        tile1.UpdatePosition(tile2.x, tile2.y);
+        tile2.UpdatePosition(tempX, tempY);
+
+        Vector3 tempPosition = tile1.transform.position;
+        tile1.transform.position = tile2.transform.position;
+        tile2.transform.position = tempPosition;
+    }
+
 
     private Color GetValidColor(int x, int y)
     {
