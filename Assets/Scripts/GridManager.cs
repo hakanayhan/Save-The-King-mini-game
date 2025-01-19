@@ -23,6 +23,8 @@ public class GridManager : MonoBehaviour
 
     public Tile SelectedTile;
 
+    private bool isSwappingAvailable = true;
+
     void Start()
     {
         grid = new GameObject[width, height];
@@ -52,28 +54,33 @@ public class GridManager : MonoBehaviour
 
     public void SwapTiles(Tile tile1, Tile tile2, bool revert = false)
     {
-        grid[tile1.x, tile1.y] = tile2.gameObject;
-        grid[tile2.x, tile2.y] = tile1.gameObject;
-
-        int tempX = tile1.x;
-        int tempY = tile1.y;
-
-        tile1.UpdatePosition(tile2.x, tile2.y);
-        tile2.UpdatePosition(tempX, tempY);
-
-        Vector3 tempPosition = tile1.transform.position;
-        tile1.transform.position = tile2.transform.position;
-        tile2.transform.position = tempPosition;
-
-        if (!CheckForMatches() && !revert)
+        if (isSwappingAvailable)
         {
-            StartCoroutine(RevertTilesAfterDelay(tile1, tile2));
+            grid[tile1.x, tile1.y] = tile2.gameObject;
+            grid[tile2.x, tile2.y] = tile1.gameObject;
+
+            int tempX = tile1.x;
+            int tempY = tile1.y;
+
+            tile1.UpdatePosition(tile2.x, tile2.y);
+            tile2.UpdatePosition(tempX, tempY);
+
+            Vector3 tempPosition = tile1.transform.position;
+            tile1.transform.position = tile2.transform.position;
+            tile2.transform.position = tempPosition;
+
+            if (!CheckForMatches() && !revert)
+            {
+                StartCoroutine(RevertTilesAfterDelay(tile1, tile2));
+            }
         }
     }
 
     private IEnumerator RevertTilesAfterDelay(Tile tile1, Tile tile2)
     {
+        isSwappingAvailable = false;
         yield return new WaitForSeconds(0.5f);
+        isSwappingAvailable = true;
         SwapTiles(tile2, tile1, true);
     }
     public bool CheckForMatches()
@@ -137,7 +144,9 @@ public class GridManager : MonoBehaviour
 
     private IEnumerator RemoveTilesAfterDelay(List<Tile> matchedTiles)
     {
+        isSwappingAvailable = false;
         yield return new WaitForSeconds(0.5f);
+        isSwappingAvailable = true;
         RemoveTiles(matchedTiles);
     }
     private void RemoveTiles(List<Tile> matchedTiles)
