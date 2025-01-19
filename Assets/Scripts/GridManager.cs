@@ -126,13 +126,19 @@ public class GridManager : MonoBehaviour
         // Remove matched tiles
         if (matchedTiles.Count > 0)
         {
-            RemoveTiles(matchedTiles);
+            StartCoroutine(RemoveTilesAfterDelay(matchedTiles));
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    private IEnumerator RemoveTilesAfterDelay(List<Tile> matchedTiles)
+    {
+        yield return new WaitForSeconds(0.5f);
+        RemoveTiles(matchedTiles);
     }
     private void RemoveTiles(List<Tile> matchedTiles)
     {
