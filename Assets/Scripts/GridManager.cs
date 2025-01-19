@@ -50,7 +50,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void SwapTiles(Tile tile1, Tile tile2)
+    public void SwapTiles(Tile tile1, Tile tile2, bool revert = false)
     {
         grid[tile1.x, tile1.y] = tile2.gameObject;
         grid[tile2.x, tile2.y] = tile1.gameObject;
@@ -65,7 +65,16 @@ public class GridManager : MonoBehaviour
         tile1.transform.position = tile2.transform.position;
         tile2.transform.position = tempPosition;
 
-        CheckForMatches();
+        if (!CheckForMatches() && !revert)
+        {
+            StartCoroutine(RevertTilesAfterDelay(tile1, tile2));
+        }
+    }
+
+    private IEnumerator RevertTilesAfterDelay(Tile tile1, Tile tile2)
+    {
+        yield return new WaitForSeconds(0.5f);
+        SwapTiles(tile2, tile1, true);
     }
     public bool CheckForMatches()
     {
