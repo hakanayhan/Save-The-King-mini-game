@@ -64,8 +64,76 @@ public class GridManager : MonoBehaviour
         Vector3 tempPosition = tile1.transform.position;
         tile1.transform.position = tile2.transform.position;
         tile2.transform.position = tempPosition;
-    }
 
+        CheckForMatches();
+    }
+    public bool CheckForMatches()
+    {
+        List<Tile> matchedTiles = new List<Tile>();
+        // Check horizontal matches
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width - 2; x++)
+            {
+                if (x + 2 < width)
+                {
+                    Tile tile1 = grid[x, y]?.GetComponent<Tile>();
+                    Tile tile2 = grid[x + 1, y]?.GetComponent<Tile>();
+                    Tile tile3 = grid[x + 2, y]?.GetComponent<Tile>();
+
+                    if (tile1 != null && tile2 != null && tile3 != null &&
+                        tile1.color == tile2.color && tile2.color == tile3.color)
+                    {
+                        matchedTiles.Add(tile1);
+                        matchedTiles.Add(tile2);
+                        matchedTiles.Add(tile3);
+                    }
+                }
+            }
+        }
+
+        // Check vertical matches
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height - 2; y++)
+            {
+                if (y + 2 < height)
+                {
+                    Tile tile1 = grid[x, y]?.GetComponent<Tile>();
+                    Tile tile2 = grid[x, y + 1]?.GetComponent<Tile>();
+                    Tile tile3 = grid[x, y + 2]?.GetComponent<Tile>();
+
+                    if (tile1 != null && tile2 != null && tile3 != null &&
+                        tile1.color == tile2.color && tile2.color == tile3.color)
+                    {
+                        matchedTiles.Add(tile1);
+                        matchedTiles.Add(tile2);
+                        matchedTiles.Add(tile3);
+                    }
+                }
+            }
+        }
+
+        // Remove matched tiles
+        if (matchedTiles.Count > 0)
+        {
+            RemoveTiles(matchedTiles);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private void RemoveTiles(List<Tile> matchedTiles)
+    {
+        foreach (var tile in matchedTiles)
+        {
+            // Destroy the matched tile
+            Destroy(tile.gameObject);
+            grid[tile.x, tile.y] = null;
+        }
+    }
 
     private Color GetValidColor(int x, int y)
     {
