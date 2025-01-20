@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    public Rigidbody2D rigidbody;
-    public CircleCollider2D collider;
+    public Rigidbody2D rb;
+    public CircleCollider2D collider2d;
 
     private void Awake()
     {
@@ -15,8 +15,8 @@ public class Water : MonoBehaviour
 
     public void Initialize()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<CircleCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        collider2d = GetComponent<CircleCollider2D>();
     }
 
     public void SetActive(bool b)
@@ -31,7 +31,7 @@ public class Water : MonoBehaviour
 
     public void SetRadius(float r)
     {
-        collider.radius = r;
+        collider2d.radius = r;
     }
 
 }
