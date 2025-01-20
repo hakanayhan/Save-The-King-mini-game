@@ -54,7 +54,7 @@ public class GridManager : MonoBehaviour
 
     public void SwapTiles(Tile tile1, Tile tile2, bool revert = false)
     {
-        if (isSwappingAvailable)
+        if (isSwappingAvailable && GameManager.Instance.isGameOn)
         {
             grid[tile1.x, tile1.y] = tile2.gameObject;
             grid[tile2.x, tile2.y] = tile1.gameObject;

@@ -43,14 +43,8 @@ public class KingManager : MonoBehaviour
 
             if (contactTime >= requiredTime)
             {
-                TriggerEvent();
-                contactTime = 0f;
+                GameManager.Instance.Lose();
             }
         }
-    }
-
-    void TriggerEvent()
-    {
-        
     }
 }
