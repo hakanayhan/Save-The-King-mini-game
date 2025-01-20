@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
         if (isGameOn)
         {
             isGameOn = false;
-            waterEmitter.emit = false;
             winTab.SetActive(true);
         }
     }
@@ -36,7 +35,6 @@ public class GameManager : MonoBehaviour
         if (isGameOn)
         {
             isGameOn = false;
-            waterEmitter.emit = false;
             loseTab.SetActive(true);
         }
     }
