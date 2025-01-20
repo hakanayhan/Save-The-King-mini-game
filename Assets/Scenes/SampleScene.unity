@@ -632,6 +632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385913979}
   - component: {fileID: 385913980}
+  - component: {fileID: 385913981}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -683,7 +684,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -699,6 +700,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &385913981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385913978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1c074d78197f24099bfc745c768654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredTime: 5
 --- !u!1 &428091915
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,7 +928,7 @@ MonoBehaviour:
   randomizeSize: 1
   randomSizeRange: {x: 0.2, y: 0.2}
   forceDirection: {x: -1, y: 0}
-  forceMagnitude: 2
+  forceMagnitude: 2.5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
